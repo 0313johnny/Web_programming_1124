@@ -26,7 +26,6 @@
         var accessoryArray = [];
         var numOfCurrentImage = 1;
 
-
         accessoryArray[1] = accessoryNames.substring(0, 3);
         accessoryArray[2] = accessoryNames.substring(4, 7);
         accessoryArray[3] = accessoryNames.substring(8, 11);
@@ -37,7 +36,7 @@
         accessoryArray[8] = accessoryNames.substring(30, 35);
         accessoryArray[9] = accessoryNames.substring(36, 39);
         accessoryArray[10] = accessoryNames.substring(40,);
-		//console.log(accessoryArray);
+	//console.log(accessoryArray);
 		
 		function num2Text(input)
 		{
@@ -56,22 +55,22 @@
 			var x = document.getElementById('x').value;
 			var y = document.getElementById('y').value;
 			var AccID = document.getElementById('pic').value;
-			console.log("x = " + x);
-			console.log("y = " + y);
-			console.log("img = " + num2Text(AccID));
+			//console.log("x = " + x);
+			//console.log("y = " + y);
+			//console.log("img = " + num2Text(AccID));
 
 			newAcc.id = "img-" + numOfCurrentImage;
 			newAcc.setAttribute("class", "picture");
 			newAcc.style = "top: " + x + "px; left: " + y + "px; z-index:" + numOfCurrentImage + ";";
 			newAcc.src = num2Text(AccID);
 			newAcc.draggable = "true";
-			console.log(newAcc);
+			//console.log(newAcc);
 
 			numOfCurrentImage++;
 			document.body.appendChild(newAcc);
 			console.log("completed");
-			var allImages = document.getElementsByClassName("picture");
-			console.log(allImages);
+			//var allImages = document.getElementsByClassName("picture");
+			//console.log(allImages);
 		}
 
 		function resetAll()
