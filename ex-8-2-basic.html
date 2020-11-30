@@ -26,6 +26,7 @@
         var accessoryArray = [];
         var numOfCurrentImage = 1;
 
+
         accessoryArray[1] = accessoryNames.substring(0, 3);
         accessoryArray[2] = accessoryNames.substring(4, 7);
         accessoryArray[3] = accessoryNames.substring(8, 11);
@@ -36,7 +37,7 @@
         accessoryArray[8] = accessoryNames.substring(30, 35);
         accessoryArray[9] = accessoryNames.substring(36, 39);
         accessoryArray[10] = accessoryNames.substring(40,);
-	//console.log(accessoryArray);
+		//console.log(accessoryArray);
 		
 		function num2Text(input)
 		{
@@ -55,36 +56,61 @@
 			var x = document.getElementById('x').value;
 			var y = document.getElementById('y').value;
 			var AccID = document.getElementById('pic').value;
-			//console.log("x = " + x);
-			//console.log("y = " + y);
-			//console.log("img = " + num2Text(AccID));
+			console.log("x = " + x);
+			console.log("y = " + y);
+			console.log("img = " + num2Text(AccID));
 
 			newAcc.id = "img-" + numOfCurrentImage;
 			newAcc.setAttribute("class", "picture");
 			newAcc.style = "top: " + x + "px; left: " + y + "px; z-index:" + numOfCurrentImage + ";";
 			newAcc.src = num2Text(AccID);
 			newAcc.draggable = "true";
-			//console.log(newAcc);
+			console.log(newAcc);
+
+			var a = JSON.stringify(newAcc) ;
+			console.log(typeof(newAcc));
+			localStorage.setItem("Acc_" + numOfCurrentImage, JSON.stringify(newAcc));
 
 			numOfCurrentImage++;
 			document.body.appendChild(newAcc);
 			console.log("completed");
-			//var allImages = document.getElementsByClassName("picture");
-			//console.log(allImages);
+			var allImages = document.getElementsByClassName("picture");
+			console.log(allImages);
+		}
+
+		function loadLocalData()
+		{
+			for(var i = 0; i < localStorage.length; i++)
+			{
+				var Obj = JSON.parse(localStorage.getItem("Acc_" + numOfCurrentImage));
+				var newAcc = document.createElement("img");
+
+				newAcc.id = Obj.id;
+				newAcc.setAttribute("class", "picture");
+				newAcc.style = Obj.style;
+				newAcc.src = Obj.src;
+				newAcc.draggable = "true";
+
+				document.body.appendChild(newAcc);
+			}
 		}
 
 		function resetAll()
 		{
-			console.log("removing new accessory");
-			var allImages = document.getElementsByClassName("picture");
-			console.log(allImages);
-			for(var i in allImages)
-				document.body.removeChild(allImages[i]);
+			console.log("removing all accessory");
+			for(var i = 0; i < numOfCurrentImage ; i++)
+			{
+				var temp = document.getElementById("img-" + i);
+				document.body.removeChild(temp);
+			}
 			console.log("completed");
+			numOfCurrentImage = 0;
+			localStorage.clear();
 		}
 
 		function start()
 		{
+			loadLocalData();
 			var add_Button = document.getElementById("addButton");
 			add_Button.addEventListener("click", addAccessory, false);
 			var removeAll_Button = document.getElementById("removeAllButton");
@@ -96,8 +122,8 @@
 </head>
 
 <body>
-	<img src="blackboard.jpg" height="600" width="800" style="float:left; z-index:0;" />
-	<img id="img-0" class="picture" style="top: 50px; left: 50px; z-index:1;" src="00.png" draggable="true" />
+	<img src="blackboard.jpg" height="600" width="800" style="float:left; z-index:-1;" />
+	<img id="img-0" class="picture" style="top: 50px; left: 50px; z-index:0;" src="00.png" draggable="true" />
 	<div id="nav" class="nav">
 		<form action="#">
 			<p>
