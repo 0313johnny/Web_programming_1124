@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Pin Pictures</title>
+	<style type="text/CSS">
+		div.nav {
+			border: 1px solid skyBlue;
+			margin-left: 3px;
+			padding: 3px;
+			float: left;
+		}
+		input, p, li {
+			font-family: Helvetica, "Microsoft YaHei", "LiHei Pro", TW-Kai;
+		}
+		li {
+			font-size: 12px;
+		}
+		img.picture {
+			position: absolute;
+		}	
+	</style>
+	<script type="text/javascript">
+		var accessoryNames = "任意門 時光機 竹蜻蜓 時光布 記憶麵包 縮小燈 翻譯蒟蒻 如果電話亭 穿透環 更衣照相機"
+        var accessoryArray = [];
+        var numOfCurrentImage = 1;
+
+
+        accessoryArray[1] = accessoryNames.substring(0, 3);
+        accessoryArray[2] = accessoryNames.substring(4, 7);
+        accessoryArray[3] = accessoryNames.substring(8, 11);
+        accessoryArray[4] = accessoryNames.substring(12, 15);
+        accessoryArray[5] = accessoryNames.substring(16, 20);
+        accessoryArray[6] = accessoryNames.substring(21, 24);
+        accessoryArray[7] = accessoryNames.substring(25, 29);
+        accessoryArray[8] = accessoryNames.substring(30, 35);
+        accessoryArray[9] = accessoryNames.substring(36, 39);
+        accessoryArray[10] = accessoryNames.substring(40,);
+		//console.log(accessoryArray);
+		
+		function num2Text(input)
+		{
+			if(input == 10)
+				return "'10.png'"
+			else
+				return "0" + input + ".png";
+		}
+
+		function addAccessory()
+		{
+			console.log("adding new accessory");
+			// 建立一個新 <img>
+			var newAcc = document.createElement("img");
+
+			var x = document.getElementById('x').value;
+			var y = document.getElementById('y').value;
+			var AccID = document.getElementById('pic').value;
+			console.log("x = " + x);
+			console.log("y = " + y);
+			console.log("img = " + num2Text(AccID));
+
+			newAcc.id = "img-" + numOfCurrentImage;
+			newAcc.setAttribute("class", "picture");
+			newAcc.style = "top: " + x + "px; left: " + y + "px; z-index:" + numOfCurrentImage + ";";
+			newAcc.src = num2Text(AccID);
+			newAcc.draggable = "true";
+			console.log(newAcc);
+
+			numOfCurrentImage++;
+			document.body.appendChild(newAcc);
+			console.log("completed");
+			var allImages = document.getElementsByClassName("picture");
+			console.log(allImages);
+		}
+
+		function resetAll()
+		{
+			console.log("removing new accessory");
+			var allImages = document.getElementsByClassName("picture");
+			console.log(allImages);
+			for(var i in allImages)
+				document.body.removeChild(allImages[i]);
+			console.log("completed");
+		}
+
+		function start()
+		{
+			var add_Button = document.getElementById("addButton");
+			add_Button.addEventListener("click", addAccessory, false);
+			var removeAll_Button = document.getElementById("removeAllButton");
+			removeAll_Button.addEventListener("click", resetAll, false);
+		}
+
+		window.addEventListener("load", start, false);
+	</script>
+</head>
+
+<body>
+	<img src="blackboard.jpg" height="600" width="800" style="float:left; z-index:0;" />
+	<img id="img-0" class="picture" style="top: 50px; left: 50px; z-index:1;" src="00.png" draggable="true" />
+	<div id="nav" class="nav">
+		<form action="#">
+			<p>
+				<label>要放哪個道具圖片(請輸入編號):
+					<input type="number" id="pic" min="1" max="10" step="1" value="1" />
+				</label><br />
+				<label>圖片X座標:
+					<input type="number" id="x" min="40" max="600" step="1" value="40" />
+				</label><br />
+				<label>圖片Y座標:
+					<input type="number" id="y" min="40" max="400" step="1" value="100" />
+				</label>
+			</p>
+			<p>
+				<input type="button" value="新增圖片" id="addButton">
+				<input type="button" value="移除所有圖片" id="removeAllButton">
+			</p>
+		</form>
+		<ul>
+			<li>[01]任意門</li>
+			<li>[02]時光機</li>
+			<li>[03]竹蜻蜓</li>
+			<li>[04]時光布</li>
+			<li>[05]記憶麵包</li>
+			<li>[06]縮小燈</li>
+			<li>[07]翻譯蒟蒻</li>
+			<li>[08]如果電話亭</li>
+			<li>[09]穿透環</li>
+			<li>[10]更衣照相機</li>
+		</ul>
+	</div>
+</body>
+
+</html>
